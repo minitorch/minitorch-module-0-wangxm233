@@ -108,15 +108,15 @@ def inv(a: float) -> float:
         raise ZeroDivisionError("Cannot calculate the reciprocal of zero.")
     return 1 / a
 
-def log_back(g: float, x: float) -> float:
+def log_back(x: float, g: float) -> float:
     """Computes the derivative of log times"""
     return g / x
 
-def inv_back(g: float, x: float) -> float:
+def inv_back(x: float, g: float) -> float:
     """Computes the derivative of reciprocal times a second arg"""
     return -g / (x*x)
 
-def relu_back(g: float, x: float) -> float:
+def relu_back(x: float, g: float) -> float:
     """Computes the derivative of ReLu times a second arg"""
     if x > 0:
         return g

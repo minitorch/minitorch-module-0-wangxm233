@@ -56,9 +56,9 @@ def test_relu(a: float) -> None:
 @pytest.mark.task0_1
 @given(small_floats, small_floats)
 def test_relu_back(a: float, b: float) -> None:
-    if b > 0:
-        assert relu_back(a, b) == a
-    if b < 0:
+    if a > 0:
+        assert relu_back(a, b) == b
+    if a < 0:
         assert relu_back(a, b) == 0.0
 
 
