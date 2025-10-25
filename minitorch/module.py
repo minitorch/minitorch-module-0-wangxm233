@@ -30,15 +30,19 @@ class Module:
         return list(m.values())
 
     def train(self) -> None:
-        """Set the mode of this module and all descendent modules to `train`."""
-        # TODO: Implement for Task 0.4.
-        raise NotImplementedError("Need to implement for Task 0.4")
+        """Set the mode of this module and all descendant modules to `train`."""
+        self.training = True
+        for _, child in self._modules.items():
+            child.train()
+            
 
     def eval(self) -> None:
         """Set the mode of this module and all descendent modules to `eval`."""
-        # TODO: Implement for Task 0.4.
-        raise NotImplementedError("Need to implement for Task 0.4")
-
+        self.training = False
+        for _, child in self._modules.items():
+            child.eval()
+            
+    
     def named_parameters(self) -> Sequence[Tuple[str, Parameter]]:
         """Collect all the parameters of this module and its descendents.
 
@@ -47,13 +51,30 @@ class Module:
             The name and `Parameter` of each ancestor parameter.
 
         """
-        # TODO: Implement for Task 0.4.
-        raise NotImplementedError("Need to implement for Task 0.4")
+        result: list[Tuple[str, Parameter]] = []
+        def _walk(node:Module, path: list[str])->None:
+            #first collect the parameters of the current node
+            for p_name, param in node._parameters.items():
+                full_name = ".".join([*path, p_name]) if path else p_name
+                result.append((full_name, param))
+            #then Re-recursive submodule
+            for m_name, child in node._modules.items():
+                _walk(child, path + [m_name])
+        _walk(self,[])
+        return result
+
 
     def parameters(self) -> Sequence[Parameter]:
         """Enumerate over all the parameters of this module and its descendents."""
-        # TODO: Implement for Task 0.4.
-        raise NotImplementedError("Need to implement for Task 0.4")
+        result: list[Parameter] = []
+        def _walf(node:Module)->None:
+            for _,param in node._parameters.items():
+                result.append(param)
+            for _, child in node._modules.items():
+                _walf(child)
+        _walf(self)
+        return result
+
 
     def add_parameter(self, k: str, v: Any) -> Parameter:
         """Manually add a parameter. Useful helper for scalar parameters.
