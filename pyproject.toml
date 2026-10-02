@@ -1,10 +1,21 @@
 [build-system]
-requires = ["hatchling"]
-build-backend = "hatchling.build"
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
 
 [project]
 name = "minitorch"
 version = "0.5"
+dependencies = [
+    "colorama==0.4.3",
+    "hypothesis==6.54",
+    "numba==0.60",
+    "numpy==2.0.0",
+    "pytest==8.3.2",
+    "pytest-env",
+    "pytest-runner==5.2",
+    "typing-extensions",
+]
+requires-python = ">=3.10"
 
 [tool.pyright]
 include = ["**/minitorch"]
@@ -149,3 +160,29 @@ unfixable = []
 
 [tool.ruff.extend-per-file-ignores]
 "tests/**/*.py" = ["D"]
+
+
+[tool.pdm]
+distribution = false
+[dependency-groups]
+dev = [
+    "altair==4.2.2",
+    "datasets==2.4.0",
+    "embeddings==0.0.8",
+    "networkx==3.3",
+    "plotly==4.14.3",
+    "pydot==1.4.1",
+    "python-mnist",
+    "streamlit==1.12.0",
+    "streamlit-ace",
+    "torch==2.14.1",
+    "watchdog==1.0.2",
+]
+tools = [
+    "pre-commit==2.20.0",
+    "ruff==0.14.2",
+    "pyright==1.1.407",
+    "flake8==5.0.4",
+    "mypy>=2.4.0",
+]
+

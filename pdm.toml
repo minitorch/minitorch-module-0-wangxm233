@@ -1,0 +1,11 @@
+[venv]
+in_project = "true"
+
+[python]
+use_venv = "true"
+
+[pypi]
+url = "https://pypi.tuna.tsinghua.edu.cn/simple"
+
+[install]
+cache = "false"
