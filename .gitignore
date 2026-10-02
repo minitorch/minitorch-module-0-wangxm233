@@ -133,5 +133,3 @@ pyodide
 
 # Pdm config file
 .pdm-python
-pdm.lock
-pyproject.toml
